@@ -7,7 +7,7 @@ const CodeText = () => {
     if (isLoading === true) {
         return (
             <pre data-prefix="1">
-                <code>loading...</code>
+                <code>Loading...</code>
             </pre>
         )
     }
