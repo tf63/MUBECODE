@@ -1,11 +1,25 @@
 /* eslint-disable no-useless-escape */
 import { NextResponse } from 'next/server'
 
+type MicroCMSContents = {
+    id: string
+    createdAt: string
+    updatedAt: string
+    publishedAt: string
+    revisedAt: string
+    text: string
+}
+
 type MicroCMSResponse = {
-    contents: Code[]
+    contents: MicroCMSContents[]
     totalCount: number
     offset: number
     limit: number
+}
+
+const extractCodeFromText = (text: string): Code => {
+    const lines = text.split('\n')
+    return { lines }
 }
 
 export const GET = () => {
@@ -36,9 +50,13 @@ export const GET = () => {
 
         const data = JSON.parse(res) as MicroCMSResponse
 
-        const codes = data.contents
+        const contents = data.contents
 
-        return NextResponse.json({ codes })
+        const content = contents[0]
+
+        const code = extractCodeFromText(content.text)
+
+        return NextResponse.json({ code })
     } catch (error) {
         console.log('CODE_GET', error)
         return new NextResponse('Internal Error', { status: 500 })

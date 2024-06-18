@@ -2,7 +2,7 @@
 import { useCode } from '@/components/hooks/use-code'
 
 const CodeText = () => {
-    const { codes, isLoading, isError } = useCode()
+    const { code, isLoading, isError } = useCode()
 
     if (isLoading === true) {
         return (
@@ -20,7 +20,7 @@ const CodeText = () => {
         )
     }
 
-    if (codes == null || codes.length === 0) {
+    if (code == null) {
         return (
             <pre data-prefix="1">
                 <code>No data</code>
@@ -28,7 +28,17 @@ const CodeText = () => {
         )
     }
 
-    return <div>{codes[0].text}</div>
+    return (
+        <>
+            {code.lines.map((line, index) => {
+                return (
+                    <pre key={line} data-prefix={index + 1}>
+                        <code>{line}</code>
+                    </pre>
+                )
+            })}
+        </>
+    )
 }
 
 export const Code = () => {
