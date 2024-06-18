@@ -1,12 +1,36 @@
 'use client'
+
+import { useEffect, useRef } from 'react'
+
 import { useCode } from '@/components/hooks/use-code'
+
+import hljs from '@/lib/hljs'
+
+const CodeLine = ({ line }: { line: string }) => {
+    const lineRef = useRef(null)
+
+    useEffect(() => {
+        if (lineRef.current == null) {
+            return
+        }
+
+        hljs.highlightElement(lineRef.current)
+    }, [line])
+
+    return (
+        // tailwindcssのプロパティが効かないのでstyleで指定
+        <code ref={lineRef} style={{ padding: 0, margin: 0, backgroundColor: 'transparent' }} className="typescript">
+            {line}
+        </code>
+    )
+}
 
 const CodeText = () => {
     const { code, isLoading, isError } = useCode()
 
     if (isLoading === true) {
         return (
-            <pre data-prefix="1">
+            <pre>
                 <code>Loading...</code>
             </pre>
         )
@@ -14,7 +38,7 @@ const CodeText = () => {
 
     if (isError != null) {
         return (
-            <pre data-prefix="1" className="bg-warning text-warning-content">
+            <pre className="bg-warning">
                 <code>Error!</code>
             </pre>
         )
@@ -22,7 +46,7 @@ const CodeText = () => {
 
     if (code == null) {
         return (
-            <pre data-prefix="1">
+            <pre>
                 <code>No data</code>
             </pre>
         )
@@ -32,8 +56,9 @@ const CodeText = () => {
         <>
             {code.lines.map((line, index) => {
                 return (
-                    <pre key={line} data-prefix={index + 1}>
-                        <code>{line}</code>
+                    // 今回はkeyをindexにする
+                    <pre key={index}>
+                        <CodeLine line={line} />
                     </pre>
                 )
             })}
@@ -41,10 +66,12 @@ const CodeText = () => {
     )
 }
 
-export const Code = () => {
+export const CodeBlock = () => {
     return (
-        <div className="mockup-code my-5">
-            <CodeText />
+        <div className="card my-5 bg-neutral shadow-sm">
+            <div className="card-body gap-0.5">
+                <CodeText />
+            </div>
         </div>
     )
 }
