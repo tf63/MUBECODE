@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 
 import { useCode } from '@/components/hooks/use-code'
+import { Window } from '@/components/ui/window'
 
 import hljs from '@/lib/hljs'
 
@@ -63,26 +64,26 @@ const CodeText = () => {
     }
 
     return (
-        <>
+        <div>
             {code.lines.map((line, index) => {
                 return (
                     // 今回はkeyをindexにする
                     <pre key={index} className="flex">
-                        <div className="mr-10 min-w-10 text-right opacity-40">{index + 1}</div>
+                        <div className="mr-10 min-w-5 text-right opacity-40">{index + 1}</div>
                         <CodeLine line={line} />
                     </pre>
                 )
             })}
-        </>
+        </div>
     )
 }
 
 export const CodeBlock = () => {
     return (
-        <div className="card my-5 bg-neutral shadow-sm">
-            <div className="card-body gap-0.5">
+        <div className="py-5">
+            <Window>
                 <CodeText />
-            </div>
+            </Window>
         </div>
     )
 }
