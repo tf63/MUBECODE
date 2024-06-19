@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 
 import { useCode } from '@/components/hooks/use-code'
+import { useTypeSystem } from '@/components/hooks/use-type-system'
 import { Window } from '@/components/ui/window'
 
 import hljs from '@/lib/hljs'
@@ -38,6 +39,12 @@ const CodeLine = ({ line }: { line: string }) => {
 
 const CodeText = () => {
     const { code, isLoading, isError } = useCode()
+
+    const { cursorIndex, lineNumber } = useTypeSystem(code)
+
+    useEffect(() => {
+        console.log(cursorIndex, lineNumber)
+    }, [cursorIndex, lineNumber])
 
     if (isLoading === true) {
         return (
