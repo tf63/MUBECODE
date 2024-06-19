@@ -32,7 +32,7 @@ export const GET = () => {
                     "updatedAt": "2024-06-18T04:35:23.980Z",
                     "publishedAt": "2024-06-18T04:35:23.980Z",
                     "revisedAt": "2024-06-18T04:35:23.980Z",
-                    "text": "import a\\nimport b"
+                    "text": "import a\\n    import b"
                 },
                 {
                     "id": "sample1",

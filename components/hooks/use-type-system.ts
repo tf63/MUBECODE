@@ -9,16 +9,15 @@ export const useTypeSystem = (code: Code | undefined) => {
     const { key } = useKey()
 
     useEffect(() => {
-        console.log(key)
-
         if (code == null) {
             return
         }
 
         const line = code.lines[lineNumberRef.current]
-        const targetKey = line[cursorIndexRef.current]
+        const strippedLine = line.trim()
+        const targetKey = strippedLine[cursorIndexRef.current]
 
-        if (cursorIndexRef.current === line.length) {
+        if (cursorIndexRef.current === strippedLine.length) {
             if (key === 'Enter') {
                 // correct -> next line
                 cursorIndexRef.current = 0
