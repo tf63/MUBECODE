@@ -19,7 +19,17 @@ const CodeLine = ({ line }: { line: string }) => {
 
     return (
         // tailwindcssのプロパティが効かないのでstyleで指定
-        <code ref={lineRef} style={{ padding: 0, margin: 0, backgroundColor: 'transparent' }} className="typescript">
+        <code
+            ref={lineRef}
+            style={{
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                whiteSpace: 'pre-wrap',
+                overflowWrap: 'break-word',
+            }}
+            className="typescript"
+        >
             {line}
         </code>
     )
@@ -58,7 +68,7 @@ const CodeText = () => {
                 return (
                     // 今回はkeyをindexにする
                     <pre key={index} className="flex">
-                        <div className="mr-10 w-8 text-right opacity-40">{index + 1}</div>
+                        <div className="mr-10 min-w-10 text-right opacity-40">{index + 1}</div>
                         <CodeLine line={line} />
                     </pre>
                 )
