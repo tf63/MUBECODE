@@ -1,10 +1,10 @@
-import { Code } from '@/components/ui/code'
+import { CodeBlock } from '@/components/ui/code'
 
 const Page = () => {
     return (
         <div>
             <button className="btn">Button</button>
-            <Code />
+            <CodeBlock />
         </div>
     )
 }
