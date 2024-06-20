@@ -17,13 +17,13 @@ export const useKey = () => {
     }, [])
 
     useEffect(() => {
-        window.addEventListener('keydown', downHandler)
-        window.addEventListener('keyup', upHandler)
+        const controller = new AbortController()
+        const { signal } = controller
 
-        return () => {
-            window.removeEventListener('keydown', downHandler)
-            window.removeEventListener('keyup', upHandler)
-        }
+        window.addEventListener('keydown', downHandler, { signal })
+        window.addEventListener('keyup', upHandler, { signal })
+
+        return () => controller.abort()
     }, [downHandler, upHandler])
 
     return { key }
