@@ -56,7 +56,7 @@ const CodeLine = ({ line }: { line: string }) => {
 }
 
 const LineNumber = ({ lineNumber }: { lineNumber: number }) => {
-    return <div className="mr-10 min-w-5 text-right opacity-40">{lineNumber}</div>
+    return <div className="mr-10 min-w-5 text-right text-opacity-40">{lineNumber}</div>
 }
 
 const CodeText = () => {
@@ -97,7 +97,10 @@ const CodeText = () => {
             {code.map(({ id, line }, index) => {
                 if (index === lineNumber) {
                     return (
-                        <pre key={id} className="flex items-center">
+                        <pre
+                            key={id}
+                            className="flex w-full items-center rounded-lg bg-base-100 p-0.5 text-cyan-300 text-opacity-40"
+                        >
                             <LineNumber lineNumber={index + 1} />
                             <TargetLine line={line} cursorIndex={cursorIndex} />
                         </pre>

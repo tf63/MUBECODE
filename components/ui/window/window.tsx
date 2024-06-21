@@ -2,7 +2,7 @@ type WindowProps = { children: React.ReactNode }
 
 const WindowButton = () => {
     return (
-        <div className=" flex gap-2 py-6">
+        <div className="flex gap-2 py-6">
             <div className="btn-circle h-3 w-3 bg-rose-400" />
             <div className="btn-circle h-3 w-3 bg-amber-400" />
             <div className="btn-circle h-3 w-3 bg-emerald-400" />
