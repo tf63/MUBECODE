@@ -7,7 +7,7 @@ const stripCode = (code: Code | undefined) => {
         return
     }
 
-    return code.map(({ line }) => line.trim())
+    return code.map(({ id, line }) => ({ id, line: line.trim() }))
 }
 
 export const useTypeSystem = (code: Code | undefined) => {
@@ -23,7 +23,7 @@ export const useTypeSystem = (code: Code | undefined) => {
             return
         }
 
-        const targetLine = targetCode[lineNumberRef.current]
+        const targetLine = targetCode[lineNumberRef.current].line
         const targetKey = targetLine[cursorIndexRef.current]
 
         if (cursorIndexRef.current === targetLine.length) {
