@@ -72,10 +72,9 @@ const CodeText = () => {
 
     return (
         <div>
-            {code.lines.map((line, index) => {
+            {code.map(({ id, line }, index) => {
                 return (
-                    // 今回はkeyをindexにする
-                    <pre key={index} className="flex">
+                    <pre key={id} className="flex">
                         <div className="mr-10 min-w-5 text-right opacity-40">{index + 1}</div>
                         <CodeLine line={line} />
                     </pre>

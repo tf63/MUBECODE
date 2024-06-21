@@ -7,7 +7,7 @@ const stripCode = (code: Code | undefined) => {
         return
     }
 
-    return code.lines.map((line) => line.trim())
+    return code.map(({ line }) => line.trim())
 }
 
 export const useTypeSystem = (code: Code | undefined) => {
