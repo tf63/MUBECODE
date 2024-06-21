@@ -8,7 +8,19 @@ const config: Config = {
         './components/**/*.{js,ts,jsx,tsx,mdx}',
         './app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
-    theme: {},
+    theme: {
+        extend: {
+            keyframes: {
+                blink: {
+                    '0%, 100%': { opacity: '1' },
+                    '50%': { opacity: '0' },
+                },
+            },
+            animation: {
+                blink: 'blink 1s infinite',
+            },
+        },
+    },
     plugins: [daisyui],
 }
 export default config

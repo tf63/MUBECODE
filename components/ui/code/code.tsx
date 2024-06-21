@@ -8,6 +8,24 @@ import { Window } from '@/components/ui/window'
 
 import hljs from '@/lib/hljs'
 
+import { Caret } from '../caret'
+
+const extractLeadingWhitespace = (input: string): string => {
+    const match = input.match(/^(\s*)/)
+    return match ? match[0] : ''
+}
+
+const TargetLine = ({ line, cursorIndex }: { line: string; cursorIndex: number }) => {
+    const prefix = extractLeadingWhitespace(line)
+    return (
+        <code>
+            {line.slice(0, cursorIndex + prefix.length)}
+            <Caret />
+            {line.slice(cursorIndex + prefix.length)}
+        </code>
+    )
+}
+
 const CodeLine = ({ line }: { line: string }) => {
     const lineRef = useRef(null)
 
@@ -35,6 +53,10 @@ const CodeLine = ({ line }: { line: string }) => {
             {line}
         </code>
     )
+}
+
+const LineNumber = ({ lineNumber }: { lineNumber: number }) => {
+    return <div className="mr-10 min-w-5 text-right opacity-40">{lineNumber}</div>
 }
 
 const CodeText = () => {
@@ -73,12 +95,21 @@ const CodeText = () => {
     return (
         <div>
             {code.map(({ id, line }, index) => {
-                return (
-                    <pre key={id} className="flex">
-                        <div className="mr-10 min-w-5 text-right opacity-40">{index + 1}</div>
-                        <CodeLine line={line} />
-                    </pre>
-                )
+                if (index === lineNumber) {
+                    return (
+                        <pre key={id} className="flex items-center">
+                            <LineNumber lineNumber={index + 1} />
+                            <TargetLine line={line} cursorIndex={cursorIndex} />
+                        </pre>
+                    )
+                } else {
+                    return (
+                        <pre key={id} className="flex items-center">
+                            <LineNumber lineNumber={index + 1} />
+                            <CodeLine line={line} />
+                        </pre>
+                    )
+                }
             })}
         </div>
     )
