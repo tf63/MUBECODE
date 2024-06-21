@@ -1,14 +1,14 @@
-import { Code } from './code'
+import { CodeBlock } from './code'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-type CodeType = typeof Code
+type CodeType = typeof CodeBlock
 
 export default {
     title: 'Code',
-    component: Code,
+    component: CodeBlock,
 } satisfies Meta<CodeType>
 
 export const Default: StoryObj<CodeType> = {
-    render: () => <Code />,
+    render: () => <CodeBlock />,
 }

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Code } from '.'
+import { CodeBlock } from '.'
 
 test('renders Code component', () => {
-    render(<Code />)
+    render(<CodeBlock />)
 })
