@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
 import { NextResponse } from 'next/server'
+import { v4 as uuidv4 } from 'uuid'
 
 type MicroCMSContents = {
     id: string
@@ -19,7 +20,7 @@ type MicroCMSResponse = {
 
 const extractCodeFromText = (text: string): Code => {
     const lines = text.split('\n')
-    return { lines }
+    return lines.map((line) => ({ id: uuidv4(), line }))
 }
 
 export const GET = () => {
