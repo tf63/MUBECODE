@@ -120,7 +120,7 @@ const CodeText = () => {
 
 export const CodeBlock = () => {
     return (
-        <div className="py-5">
+        <div className="py-6">
             <Window>
                 <CodeText />
             </Window>

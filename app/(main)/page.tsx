@@ -1,9 +1,10 @@
+import { TopBar } from '@/components/top-bar'
 import { CodeBlock } from '@/components/ui/code'
 
 const Page = () => {
     return (
         <div>
-            <button className="btn">Button</button>
+            <TopBar />
             <CodeBlock />
         </div>
     )
