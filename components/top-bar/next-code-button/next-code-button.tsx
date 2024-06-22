@@ -1,8 +1,8 @@
 'use client'
-import { useCode } from '@/components/hooks/use-code'
+import { useNextCode } from '@/components/hooks/use-next-code'
 
 export const NextCodeButton = () => {
-    const { nextCode } = useCode('typescript')
+    const { nextCode } = useNextCode()
     return (
         <div className="btn btn-primary flex font-medium" onClick={nextCode}>
             <span>Next Code</span>

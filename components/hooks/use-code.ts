@@ -2,9 +2,8 @@
 
 import { useEffect } from 'react'
 import useSWR from 'swr'
-import { create } from 'zustand'
 
-import { getRandomInt } from '@/lib/utils'
+import { useCodeStore } from '@/components/store/code-store'
 
 type APIResponse = {
     codes: Code[]
@@ -26,32 +25,25 @@ export const useCodes = (language: string) => {
     }
 }
 
-interface CodeStore {
-    codeIndex: number
-    codeSize: number
-    setCodeSize: (codeSize: number) => void
-    nextCode: () => void
-}
-
-export const useCodeStore = create<CodeStore>((set) => ({
-    codeIndex: 0,
-    codeSize: 0,
-    setCodeSize: (codeSize: number) => set(() => ({ codeSize })),
-    nextCode: () => set((state) => ({ codeIndex: getRandomInt(state.codeSize) })),
-}))
-
 export const useCode = (language: string) => {
     const { codes, isLoading, isError } = useCodes(language)
-    const { codeIndex, setCodeSize, nextCode } = useCodeStore()
+    const { codeIndex, codeSize, setCodeSize, updateCodeIndex } = useCodeStore()
 
     useEffect(() => {
         setCodeSize(codes.length)
-    }, [setCodeSize, codes.length])
+    }, [codes.length, setCodeSize])
+
+    useEffect(() => {
+        if (codeSize === 0) {
+            return
+        }
+
+        updateCodeIndex()
+    }, [codeSize, updateCodeIndex])
 
     return {
         code: codes[codeIndex],
         isLoading,
         isError,
-        nextCode,
     }
 }
