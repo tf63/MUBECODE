@@ -3,16 +3,12 @@
 import { useEffect, useRef } from 'react'
 
 import { useCode } from '@/components/hooks/use-code'
-import { useTypeSystem } from '@/components/hooks/use-type-system'
+import { useType } from '@/components/hooks/use-type'
 import { Caret } from '@/components/ui/caret'
 import { Window } from '@/components/ui/window'
 
 import hljs from '@/lib/hljs'
-
-const extractLeadingWhitespace = (input: string): string => {
-    const match = input.match(/^(\s*)/)
-    return match ? match[0] : ''
-}
+import { extractLeadingWhitespace } from '@/lib/utils'
 
 const CodeTargetLine = ({ line, cursorIndex }: { line: string; cursorIndex: number }) => {
     const prefix = extractLeadingWhitespace(line)
@@ -32,7 +28,6 @@ const CodeLine = ({ line }: { line: string }) => {
         if (lineRef.current == null) {
             return
         }
-
         hljs.highlightElement(lineRef.current)
     }, [line])
 
@@ -60,7 +55,7 @@ const LineNumber = ({ lineNumber }: { lineNumber: number }) => {
 
 const CodeLines = () => {
     const { code } = useCode('typescript')
-    const { cursorIndex, lineNumber } = useTypeSystem(code)
+    const { cursorIndex, lineNumber } = useType(code)
 
     return (
         <div>
