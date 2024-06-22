@@ -1,6 +1,8 @@
 'use client'
-import { useMemo, useState } from 'react'
+
+import { useEffect } from 'react'
 import useSWR from 'swr'
+import { create } from 'zustand'
 
 import { getRandomInt } from '@/lib/utils'
 
@@ -9,20 +11,6 @@ type APIResponse = {
 }
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
-
-export const useCode = (language: string) => {
-    const { codes, isLoading, isError } = useCodes(language)
-
-    const initialCodeIndex = useMemo(() => getRandomInt(codes.length !== 0 ? codes.length - 1 : 0), [codes.length])
-    const [codeIndex, setCodeIndex] = useState(initialCodeIndex)
-
-    return {
-        code: codes[codeIndex],
-        isLoading,
-        isError,
-        nextCode: () => setCodeIndex(() => getRandomInt(codes.length - 1)),
-    }
-}
 
 export const useCodes = (language: string) => {
     const { data, error, isLoading } = useSWR<APIResponse, Error>(`/api/codes/${language}`, fetcher)
@@ -35,5 +23,35 @@ export const useCodes = (language: string) => {
         codes: data.codes,
         isLoading,
         isError: error,
+    }
+}
+
+interface CodeStore {
+    codeIndex: number
+    codeSize: number
+    setCodeSize: (codeSize: number) => void
+    nextCode: () => void
+}
+
+export const useCodeStore = create<CodeStore>((set) => ({
+    codeIndex: 0,
+    codeSize: 0,
+    setCodeSize: (codeSize: number) => set(() => ({ codeSize })),
+    nextCode: () => set((state) => ({ codeIndex: getRandomInt(state.codeSize) })),
+}))
+
+export const useCode = (language: string) => {
+    const { codes, isLoading, isError } = useCodes(language)
+    const { codeIndex, setCodeSize, nextCode } = useCodeStore()
+
+    useEffect(() => {
+        setCodeSize(codes.length)
+    }, [setCodeSize, codes.length])
+
+    return {
+        code: codes[codeIndex],
+        isLoading,
+        isError,
+        nextCode,
     }
 }

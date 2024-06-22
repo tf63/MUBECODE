@@ -8,12 +8,12 @@ export const useKey = () => {
     const downHandler = useCallback((event: KeyboardEvent) => {
         event.preventDefault()
         if (disableKeys.includes(event.key)) return
-        setKey(event.key)
+        setKey(() => event.key)
     }, [])
 
     const upHandler = useCallback((event: KeyboardEvent) => {
         event.preventDefault()
-        setKey('')
+        setKey(() => '')
     }, [])
 
     useEffect(() => {
