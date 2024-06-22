@@ -31,11 +31,9 @@ export const GET = async (req: Request, { params }: { params: { language: string
 
         const contents = res.contents
 
-        const content = contents[0]
+        const codes = contents.map((content) => extractCodeFromText(content.text))
 
-        const code = extractCodeFromText(content.text)
-
-        return NextResponse.json({ code })
+        return NextResponse.json({ codes })
     } catch (error) {
         console.log('CODE_GET', error)
         return new NextResponse('Internal Error', { status: 500 })

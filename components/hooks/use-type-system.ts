@@ -2,15 +2,11 @@ import { useEffect, useMemo, useRef } from 'react'
 
 import { useKey } from '@/components/hooks/use-key'
 
-const stripCode = (code: Code | undefined) => {
-    if (code == null) {
-        return
-    }
-
+const stripCode = (code: Code) => {
     return code.map(({ id, line }) => ({ id, line: line.trim() }))
 }
 
-export const useTypeSystem = (code: Code | undefined) => {
+export const useTypeSystem = (code: Code) => {
     const lineNumberRef = useRef(0)
     const cursorIndexRef = useRef(0)
 
@@ -19,10 +15,6 @@ export const useTypeSystem = (code: Code | undefined) => {
     const targetCode = useMemo(() => stripCode(code), [code])
 
     useEffect(() => {
-        if (targetCode == null) {
-            return
-        }
-
         const targetLine = targetCode[lineNumberRef.current].line
         const targetKey = targetLine[cursorIndexRef.current]
 
@@ -47,7 +39,7 @@ export const useTypeSystem = (code: Code | undefined) => {
         }
     }, [key, targetCode])
 
-    if (code == null) {
+    if (code.length === 0) {
         return { cursorIndex: 0, lineNumber: 0 }
     }
 
