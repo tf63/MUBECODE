@@ -7,8 +7,8 @@ type APIResponse = {
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-export const useCode = () => {
-    const { data, error, isLoading } = useSWR<APIResponse, Error>('/api/codes', fetcher)
+export const useCode = (language: string) => {
+    const { data, error, isLoading } = useSWR<APIResponse, Error>(`/api/codes/${language}`, fetcher)
 
     return {
         code: data?.code,

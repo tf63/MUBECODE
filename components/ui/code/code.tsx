@@ -60,7 +60,7 @@ const LineNumber = ({ lineNumber }: { lineNumber: number }) => {
 }
 
 const CodeText = () => {
-    const { code, isLoading, isError } = useCode()
+    const { code, isLoading, isError } = useCode('typescript')
 
     const { cursorIndex, lineNumber } = useTypeSystem(code)
 
