@@ -1,40 +1,60 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 
-import { useKey } from '@/components/hooks/use-key'
 import { useTypeStore } from '@/components/store/type-store'
 
 import { stripCode } from '@/lib/utils'
 
+const disableKeys = ['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab', 'Super']
+
 export const useType = (code: Code) => {
     const state = useTypeStore()
 
-    const { key } = useKey()
-
     const targetCode = useMemo(() => stripCode(code), [code])
 
-    useEffect(() => {
-        const targetLine = targetCode[state.lineNumber].line
-        const targetKey = targetLine[state.cursorIndex]
+    const downHandler = useCallback(
+        (event: KeyboardEvent) => {
+            event.preventDefault()
 
-        if (state.cursorIndex === targetLine.length) {
-            if (key === 'Enter') {
-                // correct -> next line
-                state.resetCursorIndex()
-                state.incLineNumber()
+            const key = event.key
+            const targetLine = targetCode[state.lineNumber].line
+            const targetKey = targetLine[state.cursorIndex]
+            if (disableKeys.includes(key)) return
 
-                if (state.lineNumber === targetCode.length) {
-                    // finish
-                    state.resetLineNumber()
-                    state.resetCursorIndex()
+            if (state.cursorIndex === targetLine.length) {
+                if (key === 'Enter') {
+                    if (state.lineNumber === targetCode.length - 1) {
+                        // finish
+                        state.resetLineNumber()
+                        state.resetCursorIndex()
+                    } else {
+                        // correct -> next line
+                        state.resetCursorIndex()
+                        state.incLineNumber()
+                    }
                 }
             }
-        }
 
-        if (key === targetKey) {
-            // correct -> next key
-            state.incCursorIndex()
-        }
-    }, [key, state, targetCode])
+            if (key === targetKey) {
+                // correct -> next key
+                state.incCursorIndex()
+            }
+        },
+        [state, targetCode]
+    )
+
+    const upHandler = useCallback((event: KeyboardEvent) => {
+        event.preventDefault()
+    }, [])
+
+    useEffect(() => {
+        const controller = new AbortController()
+        const { signal } = controller
+
+        window.addEventListener('keydown', downHandler, { signal })
+        window.addEventListener('keyup', upHandler, { signal })
+
+        return () => controller.abort()
+    }, [downHandler, upHandler])
 
     if (code.length === 0) {
         return { cursorIndex: 0, lineNumber: 0 }

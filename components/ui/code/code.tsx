@@ -33,7 +33,6 @@ const escapeHTML = (str: string) => {
 const removeHighlight = (element: HTMLElement) => {
     if (element.dataset.highlighted) {
         delete element.dataset.highlighted
-        console.log(element.textContent)
         element.innerHTML = escapeHTML(element.textContent ?? '') // ハイライトを解除
     }
 }
