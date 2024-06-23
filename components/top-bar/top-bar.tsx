@@ -1,4 +1,4 @@
-import { LanguageSelect } from './language-select'
+import { LanguageDropdown } from './language-dropdown'
 import { NextCodeButton } from './next-code-button'
 import { ThemeSelect } from './theme-select'
 
@@ -8,7 +8,8 @@ export const TopBar = () => {
             <div className="px-4 py-3 text-center text-lg text-white">Type App</div>
             <div className="ml-auto flex items-center gap-10">
                 <ThemeSelect />
-                <LanguageSelect />
+                <LanguageDropdown />
+           
                 <NextCodeButton />
             </div>
         </div>
