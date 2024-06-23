@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { useKey } from '@/components/hooks/use-key'
 import { useTypeStore } from '@/components/store/type-store'
@@ -6,37 +6,39 @@ import { useTypeStore } from '@/components/store/type-store'
 import { stripCode } from '@/lib/utils'
 
 export const useType = (code: Code) => {
-    const { cursorIndex, lineNumber, resetLineNumber, resetCursorIndex, incLineNumber, incCursorIndex } =
-        useTypeStore()
+    const state = useTypeStore()
 
     const { key } = useKey()
 
     const targetCode = useMemo(() => stripCode(code), [code])
-    const targetLine = targetCode[lineNumber].line
-    const targetKey = targetLine[cursorIndex]
 
-    if (cursorIndex === targetLine.length) {
-        if (key === 'Enter') {
-            // correct -> next line
-            resetCursorIndex()
-            incLineNumber()
+    useEffect(() => {
+        const targetLine = targetCode[state.lineNumber].line
+        const targetKey = targetLine[state.cursorIndex]
 
-            if (lineNumber === targetCode.length) {
-                // finish
-                resetLineNumber()
-                resetCursorIndex()
+        if (state.cursorIndex === targetLine.length) {
+            if (key === 'Enter') {
+                // correct -> next line
+                state.resetCursorIndex()
+                state.incLineNumber()
+
+                if (state.lineNumber === targetCode.length) {
+                    // finish
+                    state.resetLineNumber()
+                    state.resetCursorIndex()
+                }
             }
         }
-    }
 
-    if (key === targetKey) {
-        // correct -> next key
-        incCursorIndex()
-    }
+        if (key === targetKey) {
+            // correct -> next key
+            state.incCursorIndex()
+        }
+    }, [key, state, targetCode])
 
     if (code.length === 0) {
         return { cursorIndex: 0, lineNumber: 0 }
     }
 
-    return { cursorIndex, lineNumber }
+    return { cursorIndex: state.cursorIndex, lineNumber: state.lineNumber }
 }
