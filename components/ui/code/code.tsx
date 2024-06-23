@@ -21,6 +21,29 @@ const CodeTargetLine = ({ line, cursorIndex }: { line: string; cursorIndex: numb
     )
 }
 
+const escapeHTML = (str: string) => {
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+}
+
+const removeHighlight = (element: HTMLElement) => {
+    if (element.dataset.highlighted) {
+        delete element.dataset.highlighted
+        element.innerHTML = escapeHTML(element.textContent ?? '') // ハイライトを解除
+    }
+}
+
+const highlightAgain = (element: HTMLElement) => {
+    removeHighlight(element) // 以前のハイライトを解除
+    hljs.highlightElement(element) // 再ハイライト
+
+    element.dataset.highlighted = 'true' // ハイライトが設定されたことを記録
+}
+
 const CodeLine = ({ line }: { line: string }) => {
     const lineRef = useRef(null)
 
@@ -28,7 +51,7 @@ const CodeLine = ({ line }: { line: string }) => {
         if (lineRef.current == null) {
             return
         }
-        hljs.highlightElement(lineRef.current)
+        highlightAgain(lineRef.current)
     }, [line])
 
     return (

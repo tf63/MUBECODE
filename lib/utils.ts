@@ -1,6 +1,6 @@
 export const getRandomInt = (max: number): number => {
     /*
-    This function generates a random integer between 0 and max.
+    This function generates a random integer between 0 and max (not inclusive of max)
     */
     return Math.floor(Math.random() * max)
 }
