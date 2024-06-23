@@ -23,7 +23,7 @@ const config: Config = {
     },
     plugins: [daisyui],
     daisyui: {
-        themes: ['light', 'dark', 'dracula', 'forest', 'halloween', 'sunset', 'dim'],
+        themes: ['dark', 'dracula', 'sunset', 'night'],
     },
 }
 export default config
