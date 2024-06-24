@@ -18,7 +18,7 @@ export const ThemeSelect = () => {
                     type="radio"
                     name="theme"
                     value="default"
-                    className="theme-controller radio radio-lg  checked:bg-primary"
+                    className="theme-controller radio radio-lg  checked:bg-primary focus-visible:outline-0"
                     onChange={handleChange}
                     defaultChecked
                 />
@@ -26,21 +26,21 @@ export const ThemeSelect = () => {
                     type="radio"
                     name="theme"
                     value="dracula"
-                    className="theme-controller radio  radio-lg checked:bg-primary"
+                    className="theme-controller radio  radio-lg checked:bg-primary focus-visible:outline-0"
                     onChange={handleChange}
                 />
                 <input
                     type="radio"
                     name="theme"
                     value="sunset"
-                    className="theme-controller radio radio-lg  checked:bg-primary"
+                    className="theme-controller radio radio-lg  checked:bg-primary focus-visible:outline-0"
                     onChange={handleChange}
                 />
                 <input
                     type="radio"
                     name="theme"
                     value="night"
-                    className="theme-controller radio radio-lg  checked:bg-primary"
+                    className="theme-controller radio radio-lg  checked:bg-primary focus-visible:outline-0"
                     onChange={handleChange}
                 />
             </div>

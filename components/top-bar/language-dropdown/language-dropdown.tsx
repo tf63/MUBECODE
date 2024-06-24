@@ -5,7 +5,7 @@ export const LanguageDropdown = () => {
     const { nextCode } = useNextCode()
 
     return (
-        <div className="dropdown w-80" defaultValue={'typescript'}>
+        <div className="dropdown w-80">
             <div tabIndex={0} role="button" className="btn w-full justify-between">
                 Language
                 <svg
@@ -23,9 +23,10 @@ export const LanguageDropdown = () => {
                     <input
                         type="radio"
                         name="language-dropdown"
-                        className="btn btn-ghost btn-sm btn-block justify-start"
+                        className="btn btn-ghost btn-sm btn-block justify-start focus-visible:outline-0"
                         aria-label="TypeScript"
                         value="typescript"
+                        defaultChecked
                         onChange={() => {
                             nextCode()
                         }}
@@ -35,7 +36,7 @@ export const LanguageDropdown = () => {
                     <input
                         type="radio"
                         name="language-dropdown"
-                        className="btn btn-ghost btn-sm btn-block justify-start"
+                        className="btn btn-ghost btn-sm btn-block justify-start focus-visible:outline-0"
                         aria-label="Go"
                         value="go"
                         disabled
@@ -45,7 +46,7 @@ export const LanguageDropdown = () => {
                     <input
                         type="radio"
                         name="language-dropdown"
-                        className="btn btn-ghost btn-sm btn-block justify-start"
+                        className="btn btn-ghost btn-sm btn-block justify-start focus-visible:outline-0"
                         aria-label="Python"
                         value="python"
                         disabled
