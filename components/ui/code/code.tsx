@@ -10,6 +10,8 @@ import { Window } from '@/components/ui/window'
 import hljs from '@/lib/hljs'
 import { extractLeadingWhitespace } from '@/lib/utils'
 
+// import hljs from '@/lib/hljs'
+
 const CodeTargetLine = ({ line, cursorIndex }: { line: string; cursorIndex: number }) => {
     const prefix = extractLeadingWhitespace(line)
     return (
@@ -51,24 +53,27 @@ const CodeLine = ({ line }: { line: string }) => {
         if (lineRef.current == null) {
             return
         }
+
         highlightAgain(lineRef.current)
     }, [line])
 
     return (
         // tailwindcssのプロパティが効かないのでstyleで指定
-        <code
-            ref={lineRef}
-            style={{
-                padding: 0,
-                margin: 0,
-                backgroundColor: 'transparent',
-                whiteSpace: 'pre-wrap',
-                overflowWrap: 'break-word',
-            }}
-            className="typescript"
-        >
-            {line}
-        </code>
+        <>
+            <code
+                ref={lineRef}
+                style={{
+                    padding: 0,
+                    margin: 0,
+                    backgroundColor: 'transparent',
+                    whiteSpace: 'pre-wrap',
+                    overflowWrap: 'break-word',
+                }}
+                className="typescript"
+            >
+                {line}
+            </code>
+        </>
     )
 }
 
