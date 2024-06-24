@@ -23,7 +23,7 @@ export const LanguageDropdown = () => {
                     <input
                         type="radio"
                         name="language-dropdown"
-                        className="btn btn-ghost btn-sm btn-block justify-start"
+                        className="btn btn-ghost btn-sm btn-block justify-start focus-visible:outline-0"
                         aria-label="TypeScript"
                         value="typescript"
                         defaultChecked
@@ -36,7 +36,7 @@ export const LanguageDropdown = () => {
                     <input
                         type="radio"
                         name="language-dropdown"
-                        className="btn btn-ghost btn-sm btn-block justify-start"
+                        className="btn btn-ghost btn-sm btn-block justify-start focus-visible:outline-0"
                         aria-label="Go"
                         value="go"
                         disabled
@@ -46,7 +46,7 @@ export const LanguageDropdown = () => {
                     <input
                         type="radio"
                         name="language-dropdown"
-                        className="btn btn-ghost btn-sm btn-block justify-start"
+                        className="btn btn-ghost btn-sm btn-block justify-start focus-visible:outline-0"
                         aria-label="Python"
                         value="python"
                         disabled
