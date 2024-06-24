@@ -5,7 +5,7 @@ export const LanguageDropdown = () => {
     const { nextCode } = useNextCode()
 
     return (
-        <div className="dropdown w-80" defaultValue={'typescript'}>
+        <div className="dropdown w-80">
             <div tabIndex={0} role="button" className="btn w-full justify-between">
                 Language
                 <svg
@@ -26,6 +26,7 @@ export const LanguageDropdown = () => {
                         className="btn btn-ghost btn-sm btn-block justify-start"
                         aria-label="TypeScript"
                         value="typescript"
+                        defaultChecked
                         onChange={() => {
                             nextCode()
                         }}
