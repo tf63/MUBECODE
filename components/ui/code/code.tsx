@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react'
 
 import { useCode } from '@/components/hooks/use-code'
 import { useType } from '@/components/hooks/use-type'
-import { useThemeStore } from '@/components/store/theme-store'
 import { Caret } from '@/components/ui/caret'
 import { Window } from '@/components/ui/window'
 
@@ -34,26 +33,20 @@ const CodeLine = ({ line }: { line: string }) => {
 
     return (
         // tailwindcssのプロパティが効かないのでstyleで指定
-        <>
-            <code
-                ref={lineRef}
-                style={{
-                    padding: 0,
-                    margin: 0,
-                    backgroundColor: 'transparent',
-                    whiteSpace: 'pre-wrap',
-                    overflowWrap: 'break-word',
-                }}
-                className="typescript"
-            >
-                {line}
-            </code>
-        </>
+        <code
+            ref={lineRef}
+            style={{
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                whiteSpace: 'pre-wrap',
+                overflowWrap: 'break-word',
+            }}
+            className="typescript"
+        >
+            {line}
+        </code>
     )
-}
-
-const LineNumber = ({ lineNumber }: { lineNumber: number }) => {
-    return <div className="mr-10 min-w-5 text-right text-opacity-40">{lineNumber}</div>
 }
 
 const CodeLines = () => {
@@ -67,16 +60,16 @@ const CodeLines = () => {
                     return (
                         <pre
                             key={id}
-                            className="flex w-full items-center rounded-lg bg-base-100 p-0.5 text-cyan-300 text-opacity-40"
+                            className="flex w-full items-center rounded-lg bg-base-100 p-0.5 text-primary text-opacity-60"
                         >
-                            <LineNumber lineNumber={index + 1} />
+                            <div className="mr-10 min-w-5 text-right text-primary text-opacity-60">{index + 1}</div>
                             <CodeTargetLine line={line} cursorIndex={cursorIndex} />
                         </pre>
                     )
                 } else {
                     return (
-                        <pre key={id} className="flex items-center">
-                            <LineNumber lineNumber={index + 1} />
+                        <pre key={id} className="flex w-full items-center">
+                            <div className="mr-10 min-w-5 text-right text-white text-opacity-40">{index + 1}</div>
                             <CodeLine line={line} />
                         </pre>
                     )
@@ -120,6 +113,7 @@ export const CodeBlock = () => {
     return (
         <div className="py-6">
             <Window>
+                {}
                 <CodeContent />
             </Window>
         </div>

@@ -29,6 +29,7 @@ const config = {
                     '--rounded-btn': '0.5rem',
                 },
             },
+            'dim',
         ],
     },
 }

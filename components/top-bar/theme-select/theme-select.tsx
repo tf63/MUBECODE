@@ -39,7 +39,7 @@ export const ThemeSelect = () => {
                 <input
                     type="radio"
                     name="theme"
-                    value="night"
+                    value="dim"
                     className="theme-controller radio radio-lg  checked:bg-primary focus-visible:outline-0"
                     onChange={handleChange}
                 />
