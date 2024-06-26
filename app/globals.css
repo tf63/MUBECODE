@@ -7,4 +7,10 @@ html,
 body,
 :root {
     height: 100%;
+    scrollbar-width: none
+}
+
+/* Chrome, Safari, Edge, and Opera */
+&::-webkit-scrollbar {
+    display: 'none',
 }

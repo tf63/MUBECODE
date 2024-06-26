@@ -118,7 +118,6 @@ export const CodeBlock = () => {
     return (
         <div className="py-6">
             <Window>
-                {}
                 <CodeContent />
             </Window>
         </div>
