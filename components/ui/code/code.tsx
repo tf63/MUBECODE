@@ -4,31 +4,36 @@ import { useEffect, useRef } from 'react'
 
 import { useCode } from '@/components/hooks/use-code'
 import { useType } from '@/components/hooks/use-type'
+import { useTypeStore } from '@/components/store/type-store'
 import { Caret } from '@/components/ui/caret'
 import { Window } from '@/components/ui/window'
 
-import { extractLeadingWhitespace, highlightCodeAgain } from '@/lib/utils'
+import { extractLeadingWhitespace, highlightCodeAgain, scrollWithInScreen } from '@/lib/utils'
 
-const CodeTargetLine = ({ line, cursorIndex }: { line: string; cursorIndex: number }) => {
+const CodeTargetLine = ({ line }: { line: string }) => {
+    const { cursorIndex, lineNumber } = useTypeStore()
+    const caretRef = useRef<HTMLSpanElement | null>(null)
+
+    useEffect(() => {
+        scrollWithInScreen(caretRef)
+    }, [cursorIndex, lineNumber])
+
     const prefix = extractLeadingWhitespace(line)
+
     return (
         <code>
             {line.slice(0, cursorIndex + prefix.length)}
-            <Caret />
+            <Caret ref={caretRef} />
             {line.slice(cursorIndex + prefix.length)}
         </code>
     )
 }
 
 const CodeLine = ({ line }: { line: string }) => {
-    const lineRef = useRef(null)
+    const lineRef = useRef<HTMLElement | null>(null)
 
     useEffect(() => {
-        if (lineRef.current == null) {
-            return
-        }
-
-        highlightCodeAgain(lineRef.current)
+        highlightCodeAgain(lineRef)
     }, [line])
 
     return (
@@ -51,7 +56,7 @@ const CodeLine = ({ line }: { line: string }) => {
 
 const CodeLines = () => {
     const { code } = useCode('typescript')
-    const { cursorIndex, lineNumber } = useType(code)
+    const { lineNumber } = useType(code)
 
     return (
         <div>
@@ -63,7 +68,7 @@ const CodeLines = () => {
                             className="flex w-full items-center rounded-lg bg-base-100 p-0.5 text-primary text-opacity-60"
                         >
                             <div className="mr-10 min-w-5 text-right text-primary text-opacity-60">{index + 1}</div>
-                            <CodeTargetLine line={line} cursorIndex={cursorIndex} />
+                            <CodeTargetLine line={line} />
                         </pre>
                     )
                 } else {

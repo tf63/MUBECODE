@@ -1,3 +1,5 @@
+import { MutableRefObject } from 'react'
+
 import hljs from '@/lib/hljs'
 
 export const getRandomInt = (max: number): number => {
@@ -57,12 +59,35 @@ export const removeCodeHighlight = (element: HTMLElement) => {
     }
 }
 
-export const highlightCodeAgain = (element: HTMLElement) => {
+export const highlightCodeAgain = (elementRef: MutableRefObject<HTMLSpanElement | null>) => {
     /*
     This function re-highlights code in an element.
     */
+    if (elementRef.current == null) return
+
+    const element = elementRef.current
     removeCodeHighlight(element)
     hljs.highlightElement(element)
 
     element.dataset.highlighted = 'true'
+}
+
+export const scrollWithInScreen = (elementRef: MutableRefObject<HTMLSpanElement | null>) => {
+    /*
+    This function scrolls the element into view if it is not in the viewport.
+    */
+    if (elementRef.current == null) return
+
+    const element = elementRef.current
+
+    const elementRect = element.getBoundingClientRect()
+    const viewportHeight = window.innerHeight
+
+    if (elementRect.bottom > viewportHeight / 2) {
+        element.scrollIntoView({ behavior: 'instant', block: 'center' })
+    }
+
+    if (elementRect.top < 0) {
+        element.scrollIntoView({ behavior: 'instant', block: 'center' })
+    }
 }
