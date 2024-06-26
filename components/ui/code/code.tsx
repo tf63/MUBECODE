@@ -21,10 +21,10 @@ const CodeTargetLine = ({ line }: { line: string }) => {
     const prefix = extractLeadingWhitespace(line)
 
     return (
-        <code>
-            {line.slice(0, cursorIndex + prefix.length)}
+        <code className="w-full whitespace-pre-wrap break-words">
+            <span>{line.slice(0, cursorIndex + prefix.length)}</span>
             <Caret ref={caretRef} />
-            {line.slice(cursorIndex + prefix.length)}
+            <span>{line.slice(cursorIndex + prefix.length)}</span>
         </code>
     )
 }
