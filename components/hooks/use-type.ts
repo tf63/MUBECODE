@@ -26,10 +26,12 @@ export const useType = (code: Code) => {
                         // finish
                         state.resetLineNumber()
                         state.resetCursorIndex()
+                        return
                     } else {
                         // correct -> next line
                         state.resetCursorIndex()
                         state.incLineNumber()
+                        return
                     }
                 }
             }
@@ -37,6 +39,7 @@ export const useType = (code: Code) => {
             if (key === targetKey) {
                 // correct -> next key
                 state.incCursorIndex()
+                return
             }
         },
         [state, targetCode]
