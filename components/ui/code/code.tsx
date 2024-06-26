@@ -4,13 +4,11 @@ import { useEffect, useRef } from 'react'
 
 import { useCode } from '@/components/hooks/use-code'
 import { useType } from '@/components/hooks/use-type'
+import { useThemeStore } from '@/components/store/theme-store'
 import { Caret } from '@/components/ui/caret'
 import { Window } from '@/components/ui/window'
 
-import hljs from '@/lib/hljs'
-import { extractLeadingWhitespace } from '@/lib/utils'
-
-// import hljs from '@/lib/hljs'
+import { extractLeadingWhitespace, highlightCodeAgain } from '@/lib/utils'
 
 const CodeTargetLine = ({ line, cursorIndex }: { line: string; cursorIndex: number }) => {
     const prefix = extractLeadingWhitespace(line)
@@ -23,29 +21,6 @@ const CodeTargetLine = ({ line, cursorIndex }: { line: string; cursorIndex: numb
     )
 }
 
-const escapeHTML = (str: string) => {
-    return str
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;')
-}
-
-const removeHighlight = (element: HTMLElement) => {
-    if (element.dataset.highlighted) {
-        delete element.dataset.highlighted
-        element.innerHTML = escapeHTML(element.textContent ?? '') // ハイライトを解除
-    }
-}
-
-const highlightAgain = (element: HTMLElement) => {
-    removeHighlight(element) // 以前のハイライトを解除
-    hljs.highlightElement(element) // 再ハイライト
-
-    element.dataset.highlighted = 'true' // ハイライトが設定されたことを記録
-}
-
 const CodeLine = ({ line }: { line: string }) => {
     const lineRef = useRef(null)
 
@@ -54,7 +29,7 @@ const CodeLine = ({ line }: { line: string }) => {
             return
         }
 
-        highlightAgain(lineRef.current)
+        highlightCodeAgain(lineRef.current)
     }, [line])
 
     return (

@@ -1,3 +1,5 @@
+import hljs from '@/lib/hljs'
+
 export const getRandomInt = (max: number): number => {
     /*
     This function generates a random integer between 0 and max (not inclusive of max)
@@ -31,4 +33,36 @@ export const extractLeadingWhitespace = (input: string): string => {
     */
     const match = input.match(/^(\s*)/)
     return match ? match[0] : ''
+}
+
+export const escapeHTML = (str: string) => {
+    /*
+    This function escapes HTML entities in a string.
+    */
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+}
+
+export const removeCodeHighlight = (element: HTMLElement) => {
+    /*
+    This function removes code highlighting from an element.
+    */
+    if (element.dataset.highlighted) {
+        delete element.dataset.highlighted
+        element.innerHTML = escapeHTML(element.textContent ?? '') // ハイライトを解除
+    }
+}
+
+export const highlightCodeAgain = (element: HTMLElement) => {
+    /*
+    This function re-highlights code in an element.
+    */
+    removeCodeHighlight(element)
+    hljs.highlightElement(element)
+
+    element.dataset.highlighted = 'true'
 }
