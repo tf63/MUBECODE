@@ -4,15 +4,21 @@ import { useCodeStore } from '@/components/store/code-store'
 import { useTypeStore } from '@/components/store/type-store'
 
 export const useNextCode = () => {
-    const [updateCodeIndex] = useCodeStore(useShallow((state) => [state.updateCodeIndex]))
+    const [updateCodeIndex, resetCodeIndex] = useCodeStore(
+        useShallow((state) => [state.updateCodeIndex, state.resetCodeIndex])
+    )
     const [resetCursorIndex, resetLineNumber] = useTypeStore(
         useShallow((state) => [state.resetCursorIndex, state.resetLineNumber])
     )
 
-    const nextCode = () => {
+    const nextCode = (random: boolean) => {
         resetCursorIndex()
         resetLineNumber()
-        updateCodeIndex()
+        if (random === true) {
+            updateCodeIndex()
+        } else {
+            resetCodeIndex()
+        }
     }
 
     return {

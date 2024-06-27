@@ -1,9 +1,10 @@
 'use client'
 import { useNextCode } from '@/components/hooks/use-next-code'
+import { useLanguageStore } from '@/components/store/language-store'
 
 export const LanguageDropdown = () => {
     const { nextCode } = useNextCode()
-
+    const { setLanguage } = useLanguageStore()
     return (
         <div className="dropdown w-80">
             <div tabIndex={0} role="button" className="btn w-full justify-between">
@@ -28,7 +29,8 @@ export const LanguageDropdown = () => {
                         value="typescript"
                         defaultChecked
                         onChange={() => {
-                            nextCode()
+                            setLanguage('typescript')
+                            nextCode(false)
                         }}
                     />
                 </li>
@@ -39,7 +41,10 @@ export const LanguageDropdown = () => {
                         className="btn btn-ghost btn-sm btn-block justify-start focus-visible:outline-0"
                         aria-label="Go"
                         value="go"
-                        disabled
+                        onChange={() => {
+                            setLanguage('go')
+                            nextCode(false)
+                        }}
                     />
                 </li>
                 <li>
@@ -49,7 +54,10 @@ export const LanguageDropdown = () => {
                         className="btn btn-ghost btn-sm btn-block justify-start focus-visible:outline-0"
                         aria-label="Python"
                         value="python"
-                        disabled
+                        onChange={() => {
+                            setLanguage('python')
+                            nextCode(false)
+                        }}
                     />
                 </li>
             </ul>

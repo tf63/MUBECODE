@@ -10,7 +10,7 @@ export const NextCodeButton = () => {
         const handleKeyDown = (event: KeyboardEvent) => {
             event.preventDefault()
             if (event.key === 'Escape') {
-                nextCode()
+                nextCode(true)
             }
         }
 
@@ -22,7 +22,7 @@ export const NextCodeButton = () => {
     }, [nextCode])
 
     return (
-        <div className="btn btn-primary flex font-medium" onClick={nextCode}>
+        <div className="btn btn-primary flex font-medium" onClick={() => nextCode(true)}>
             <span>Next Code</span>
 
             <kbd

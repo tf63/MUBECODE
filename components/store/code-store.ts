@@ -7,6 +7,7 @@ interface CodeStore {
     codeSize: number
     setCodeSize: (codeSize: number) => void
     updateCodeIndex: () => void
+    resetCodeIndex: () => void
 }
 
 export const useCodeStore = create<CodeStore>((set) => ({
@@ -14,4 +15,5 @@ export const useCodeStore = create<CodeStore>((set) => ({
     codeSize: 0,
     setCodeSize: (codeSize: number) => set(() => ({ codeSize })),
     updateCodeIndex: () => set((state) => ({ codeIndex: getRandomAnotherInt(state.codeSize, state.codeIndex) })),
+    resetCodeIndex: () => set(() => ({ codeIndex: 0 })),
 }))
