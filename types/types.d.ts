@@ -3,4 +3,6 @@ type Line = {
     line: string
 }
 
+type Theme = 'default' | 'dracula' | 'sunset' | 'dim'
+
 type Code = Line[]
