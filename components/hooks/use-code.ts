@@ -5,13 +5,16 @@ import useSWR from 'swr'
 
 import { useCodeStore } from '@/components/store/code-store'
 
+import { useLanguageStore } from '../store/language-store'
+
 type APIResponse = {
     codes: Code[]
 }
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-export const useCodes = (language: string) => {
+export const useCodes = () => {
+    const { language } = useLanguageStore()
     const apiURL = `${process.env.NEXT_PUBLIC_CODE_API_URL}/${language}`
     const { data, error, isLoading } = useSWR<APIResponse, Error>(apiURL, fetcher)
 
@@ -26,8 +29,8 @@ export const useCodes = (language: string) => {
     }
 }
 
-export const useCode = (language: string) => {
-    const { codes, isLoading, isError } = useCodes(language)
+export const useCode = () => {
+    const { codes, isLoading, isError } = useCodes()
     const { codeIndex, codeSize, setCodeSize, updateCodeIndex } = useCodeStore()
 
     useEffect(() => {

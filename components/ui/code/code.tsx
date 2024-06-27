@@ -55,7 +55,7 @@ const CodeLine = ({ line }: { line: string }) => {
 }
 
 const CodeLines = () => {
-    const { code } = useCode('typescript')
+    const { code } = useCode()
     const { lineNumber } = useType(code)
 
     return (
@@ -85,7 +85,7 @@ const CodeLines = () => {
 }
 
 const CodeContent = () => {
-    const { code, isLoading, isError } = useCode('typescript')
+    const { code, isLoading, isError } = useCode()
 
     if (isLoading === true) {
         return (
