@@ -1,40 +1,8 @@
-### next template
-
-```
-    # プロジェクトの作成
-    pnpx create-next-app --ts frontend
-    # パッケージのインストール
-    pnpm install
-    # 新規インストール
-    pnpm install <package>
-    # 開発サーバーの立ち上げ
-    pnpm run dev
-```
-
-plopのインストール
-```
-    pnpm add -D plop
-```
-
-plopのtemplatesの作成
-- `templates/`
-
-jest, react-testing-libraryの導入
-- https://qiita.com/masakiwakabayashi/items/204ed2b32254bbc9a5c1
-- https://qiita.com/ossan-engineer/items/4757d7457fafd44d2d2f
-- https://qiita.com/ridai/items/d87d77e329644aad3086
-```
-    pnpm add -D jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom ts-jest @types/jest
-```
-
-tsconfigの設定
-- https://zenn.dev/nnt/articles/f69ce7a3492922
-
-
-\*.test.tsと\*.spec.tsの使い分け
-- https://zenn.dev/takashiaihara/articles/b35532a9f96c0c
-
-
-### 参考
-linter, formatterの設定
-- https://zenn.dev/resistance_gowy/articles/91b4f62b9f48ec
+# MUBECODE
+<!-- ロゴとラベルの色はここから https://simpleicons.org -->
+![Node](https://img.shields.io/badge/Node-20.11.0-339933?logo=nodedotjs)
+![daisyUI](https://img.shields.io/badge/Next.js-14.2.3-000000?logo=nextdotjs)
+![Next.js](https://img.shields.io/badge/daisyUI-4.12.2-5A0EF8?logo=daisyui)
+![SWR](https://img.shields.io/badge/SWR-2.2.5-000000?logo=swr)
+![zustand](https://img.shields.io/badge/zustand-4.5.2-84331F)
+![pnpm](https://img.shields.io/badge/pnpm-9.1.1-F69220?logo=pnpm)
