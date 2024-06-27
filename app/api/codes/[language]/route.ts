@@ -4,15 +4,6 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { client } from '@/lib/microcms'
 
-type MicroCMSContents = {
-    id: string
-    createdAt: string
-    updatedAt: string
-    publishedAt: string
-    revisedAt: string
-    text: string
-}
-
 const extractCodeFromText = (text: string): Code => {
     const lines = text.split('\n')
     return lines.map((line) => ({ id: uuidv4(), line }))

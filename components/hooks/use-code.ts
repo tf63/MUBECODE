@@ -12,7 +12,8 @@ type APIResponse = {
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export const useCodes = (language: string) => {
-    const { data, error, isLoading } = useSWR<APIResponse, Error>(`/api/codes/${language}`, fetcher)
+    const apiURL = `${process.env.NEXT_PUBLIC_CODE_API_URL}/${language}`
+    const { data, error, isLoading } = useSWR<APIResponse, Error>(apiURL, fetcher)
 
     if (data == null) {
         return { codes: [], isLoading, isError: error }
