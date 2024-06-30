@@ -13,6 +13,7 @@ export const useCursorIndex = (line: string) => {
     const targetLine = useMemo(() => line.trim(), [line])
 
     useEffect(() => {
+        // 空のlineに対応するために レンダリングごとにカーソルの終端判定
         if (cursorIndex === targetLine.length) {
             setLineFinished(true)
         }
@@ -53,14 +54,8 @@ export const useCursorIndex = (line: string) => {
 }
 
 export const useLineNumber = (maxLineNumber: number) => {
-    const [lineNumber, isLineFinished, resetLineNumber, resetCursorIndex, incLineNumber] = useTypeStore(
-        useShallow((state) => [
-            state.lineNumber,
-            state.isLineFinished,
-            state.resetLineNumber,
-            state.resetCursorIndex,
-            state.incLineNumber,
-        ])
+    const [lineNumber, isLineFinished, resetGame, nextLine] = useTypeStore(
+        useShallow((state) => [state.lineNumber, state.isLineFinished, state.resetGame, state.nextLine])
     )
 
     const downHandler = useCallback(
@@ -70,18 +65,16 @@ export const useLineNumber = (maxLineNumber: number) => {
             if (isLineFinished && event.key === 'Enter') {
                 if (lineNumber === maxLineNumber - 1) {
                     // finish
-                    resetLineNumber()
-                    resetCursorIndex()
+                    resetGame()
                     return
                 } else {
                     // correct -> next line
-                    resetCursorIndex()
-                    incLineNumber()
+                    nextLine()
                     return
                 }
             }
         },
-        [maxLineNumber, isLineFinished, lineNumber, resetCursorIndex, resetLineNumber, incLineNumber]
+        [lineNumber, maxLineNumber, isLineFinished, resetGame, nextLine]
     )
 
     const upHandler = useCallback((event: KeyboardEvent) => {
