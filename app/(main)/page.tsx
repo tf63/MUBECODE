@@ -1,5 +1,5 @@
-import { TopBar } from '@/components/top-bar'
 import { CodeBlock } from '@/components/ui/code'
+import { TopBar } from '@/components/ui/top-bar'
 
 const Page = () => {
     return (
