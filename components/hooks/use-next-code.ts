@@ -7,13 +7,11 @@ export const useNextCode = () => {
     const [updateCodeIndex, resetCodeIndex] = useCodeStore(
         useShallow((state) => [state.updateCodeIndex, state.resetCodeIndex])
     )
-    const [resetCursorIndex, resetLineNumber] = useTypeStore(
-        useShallow((state) => [state.resetCursorIndex, state.resetLineNumber])
-    )
+    const [resetGame] = useTypeStore(useShallow((state) => [state.resetGame]))
 
     const nextCode = (random: boolean) => {
-        resetCursorIndex()
-        resetLineNumber()
+        resetGame()
+
         if (random === true) {
             updateCodeIndex()
         } else {

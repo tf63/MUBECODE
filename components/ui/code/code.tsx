@@ -3,20 +3,19 @@
 import { useEffect, useRef } from 'react'
 
 import { useCode } from '@/components/hooks/use-code'
-import { useType } from '@/components/hooks/use-type'
-import { useTypeStore } from '@/components/store/type-store'
+import { useCursorIndex, useLineNumber } from '@/components/hooks/use-type'
 import { Caret } from '@/components/ui/caret'
 import { Window } from '@/components/ui/window'
 
 import { extractLeadingWhitespace, highlightCodeAgain, scrollWithInScreen } from '@/lib/utils'
 
 const CodeTargetLine = ({ line }: { line: string }) => {
-    const { cursorIndex, lineNumber } = useTypeStore()
+    const { cursorIndex } = useCursorIndex(line)
     const caretRef = useRef<HTMLSpanElement | null>(null)
 
     useEffect(() => {
         scrollWithInScreen(caretRef)
-    }, [cursorIndex, lineNumber])
+    }, [])
 
     const prefix = extractLeadingWhitespace(line)
 
@@ -56,7 +55,7 @@ const CodeLine = ({ line }: { line: string }) => {
 
 const CodeLines = () => {
     const { code } = useCode()
-    const { lineNumber } = useType(code)
+    const { lineNumber } = useLineNumber(code.length)
 
     return (
         <div>
