@@ -6,8 +6,8 @@ module.exports = function (plop) {
             {
                 type: 'input',
                 name: 'path',
-                default: 'ui',
-                message: 'Please enter the path following components/ (e.g. ui):',
+                default: '',
+                message: 'Please enter the path following components/:',
             },
             {
                 type: 'input',
