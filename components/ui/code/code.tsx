@@ -1,62 +1,14 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-
 import { useCode } from '@/components/hooks/use-code'
-import { useType } from '@/components/hooks/use-type'
-import { useTypeStore } from '@/components/store/type-store'
-import { Caret } from '@/components/ui/caret'
+import { useLineNumber } from '@/components/hooks/use-type'
 import { Window } from '@/components/ui/window'
 
-import { extractLeadingWhitespace, highlightCodeAgain, scrollWithInScreen } from '@/lib/utils'
-
-const CodeTargetLine = ({ line }: { line: string }) => {
-    const { cursorIndex, lineNumber } = useTypeStore()
-    const caretRef = useRef<HTMLSpanElement | null>(null)
-
-    useEffect(() => {
-        scrollWithInScreen(caretRef)
-    }, [cursorIndex, lineNumber])
-
-    const prefix = extractLeadingWhitespace(line)
-
-    return (
-        <code className="w-full whitespace-pre-wrap break-words">
-            <span>{line.slice(0, cursorIndex + prefix.length)}</span>
-            <Caret ref={caretRef} />
-            <span>{line.slice(cursorIndex + prefix.length)}</span>
-        </code>
-    )
-}
-
-const CodeLine = ({ line }: { line: string }) => {
-    const lineRef = useRef<HTMLElement | null>(null)
-
-    useEffect(() => {
-        highlightCodeAgain(lineRef)
-    }, [line])
-
-    return (
-        // tailwindcssのプロパティが効かないのでstyleで指定
-        <code
-            ref={lineRef}
-            style={{
-                padding: 0,
-                margin: 0,
-                backgroundColor: 'transparent',
-                whiteSpace: 'pre-wrap',
-                overflowWrap: 'break-word',
-            }}
-            className="typescript"
-        >
-            {line}
-        </code>
-    )
-}
+import { CodeLine, CodeTargetLine } from './code-line'
 
 const CodeLines = () => {
     const { code } = useCode()
-    const { lineNumber } = useType(code)
+    const { lineNumber } = useLineNumber(code.length)
 
     return (
         <div>
