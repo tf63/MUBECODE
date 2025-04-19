@@ -1,5 +1,5 @@
 type Theme = 'default' | 'dracula' | 'sunset' | 'dim'
-type Language = 'typescript' | 'go' | 'python'
+type Language = 'typescript' | 'go' | 'python' | 'ruby'
 
 type Line = {
     id: string
