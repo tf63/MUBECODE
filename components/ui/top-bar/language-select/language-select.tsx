@@ -4,6 +4,7 @@ export const LanguageSelect = () => {
             <option>TypeScript</option>
             <option disabled>Go</option>
             <option disabled>Python</option>
+            <option disabled>Ruby</option>
         </select>
     )
 }
