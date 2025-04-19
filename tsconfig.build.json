@@ -1,15 +1,18 @@
 {
-    "extends": "./tsconfig.json",
-    "exclude": [
-        "node_modules",
-        "out",
-        ".next",
-        "bower_components",
-        "jspm_packages",
-        "**/*.stories.tsx",
-        "**/*.test.ts",
-        "**/*.test.tsx",
-        "**/*.spec.ts",
-        "**/*.spec.tsx"
-    ]
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "node_modules",
+    "out",
+    ".next",
+    "bower_components",
+    "jspm_packages",
+    "**/*.stories.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ],
+  "compilerOptions": {
+    "target": "ES2017"
+  }
 }
