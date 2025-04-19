@@ -60,6 +60,19 @@ export const LanguageDropdown = () => {
                         }}
                     />
                 </li>
+                <li>
+                    <input
+                        type="radio"
+                        name="language-dropdown"
+                        className="btn btn-ghost btn-sm btn-block justify-start focus-visible:outline-0"
+                        aria-label="Ruby"
+                        value="ruby"
+                        onChange={() => {
+                            setLanguage('ruby')
+                            nextCode(false)
+                        }}
+                    />
+                </li>
             </ul>
         </div>
     )
